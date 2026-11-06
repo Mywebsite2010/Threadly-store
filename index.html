@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>THREADLY | Wear Better. Live Stylish.</title>
+<meta name="description" content="Explore the latest fashion for men, women and kids at THREADLY.">
+<style>
+:root{--bg:#080810;--card:#141321;--purple:#8b5cf6;--light:#eeeafa;--muted:#aaa5bb}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--light);font-family:Arial,sans-serif}
+header{padding:18px 6%;display:flex;justify-content:space-between;align-items:center;background:#0e0c19;border-bottom:1px solid #29213d;position:sticky;top:0;z-index:5}
+.logo{font-size:25px;font-weight:900;letter-spacing:2px}
+.logo span{color:var(--purple)}
+nav{display:flex;gap:20px}
+nav a{color:white;text-decoration:none;font-size:14px}
+nav a:hover{color:#b99aff}
+.hero{padding:65px 7%;min-height:380px;display:flex;align-items:center;background:linear-gradient(90deg,#090813 15%,#17102d 65%,#291451)}
+.hero-content{max-width:520px}
+.tag{color:#c4aaff;font-size:13px;letter-spacing:2px}
+h1{font-size:clamp(40px,7vw,66px);line-height:1.05;margin:15px 0}
+h1 span{color:#a77bff}
+.hero p{color:#c5bfd2;line-height:1.7}
+.btn{display:inline-block;background:var(--purple);color:white;padding:13px 22px;border-radius:9px;text-decoration:none;font-weight:bold;border:0;cursor:pointer}
+section{padding:45px 6%}
+.section-title{font-size:27px;margin:0 0 8px}
+.sub{color:var(--muted);margin:0 0 25px}
+.categories{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.category{padding:22px 10px;text-align:center;border:1px solid #38285a;background:var(--card);border-radius:13px;cursor:pointer;color:white;font-weight:bold}
+.category.active,.category:hover{background:#392064;border-color:var(--purple)}
+.tools{display:flex;gap:10px;flex-wrap:wrap;margin:20px 0}
+input{flex:1;min-width:180px;padding:13px;border-radius:9px;border:1px solid #403653;background:#171522;color:white}
+.products{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.product{background:var(--card);border:1px solid #282238;border-radius:13px;overflow:hidden}
+.product img{width:100%;height:220px;object-fit:cover;background:#242033}
+.info{padding:14px}
+.info h3{margin:0 0 8px;font-size:17px}
+.price{font-weight:bold;color:#c6a7ff;font-size:18px}
+.old{color:#888;text-decoration:line-through;font-size:13px;margin-left:7px}
+.order{display:block;text-align:center;margin-top:13px;padding:11px;background:#6d3bd1;color:white;text-decoration:none;border-radius:8px;font-size:14px;font-weight:bold}
+.about{background:#12101d;border-top:1px solid #302544;border-bottom:1px solid #302544}
+footer{text-align:center;padding:30px 15px;color:#aaa;font-size:13px}
+footer strong{color:white}
+@media(max-width:650px){
+ header{padding:15px 4%}nav{gap:11px}nav a{font-size:12px}
+ .hero{padding:55px 6%;min-height:340px}
+ .products{grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}
+ .product img{height:165px}.info{padding:10px}.info h3{font-size:15px}
+ section{padding:35px 4%}
+}
+@media(max-width:360px){nav{gap:7px}nav a{font-size:11px}.products{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header>
+  <div class="logo">THREAD<span>LY.</span></div>
+  <nav>
+    <a href="#home">Home</a>
+    <a href="#shop">Shop</a>
+    <a href="#about">About</a>
+  </nav>
+</header>
+
+<main>
+<section class="hero" id="home">
+  <div class="hero-content">
+    <div class="tag">NEW SEASON COLLECTION</div>
+    <h1>Upgrade Your <span>Style.</span></h1>
+    <p>Discover your everyday style. Explore fresh fashion for Men, Women and Kids — all in one place.</p>
+    <a class="btn" href="#shop">Explore Collection →</a>
+  </div>
+</section>
+
+<section>
+  <h2 class="section-title">Shop by Category</h2>
+  <p class="sub">Find your perfect style</p>
+  <div class="categories">
+    <button class="category active" onclick="filterProducts('All',this)">All</button>
+    <button class="category" onclick="filterProducts('Men',this)">Men</button>
+    <button class="category" onclick="filterProducts('Women',this)">Women</button>
+    <button class="category" onclick="filterProducts('Kids',this)">Kids</button>
+  </div>
+</section>
+
+<section id="shop">
+  <h2 class="section-title">Our Collection</h2>
+  <p class="sub">A little style goes a long way.</p>
+  <div class="tools">
+    <input id="search" type="search" placeholder="Search products..." oninput="renderProducts()">
+  </div>
+  <div class="products" id="products"></div>
+</section>
+
+<section class="about" id="about">
+  <h2 class="section-title">About THREADLY</h2>
+  <p class="sub">Wear Better. Live Stylish. Fashion for everyone, made easy to explore.</p>
+  <a class="btn" href="#shop">Explore Products</a>
+</section>
+</main>
+
+<footer>
+  <strong>THREADLY.</strong><br>
+  Wear Better. Live Stylish.<br><br>
+  © 2026 THREADLY. Demo Store.
+</footer>
+
+<script>
+const WHATSAPP_NUMBER = "91XXXXXXXXXX";
+
+const items = [
+ {name:"Classic Black Hoodie",cat:"Men",price:999,old:1299,img:"https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=600"},
+ {name:"Casual White T-Shirt",cat:"Men",price:499,old:699,img:"https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=600"},
+ {name:"Women Style Jacket",cat:"Women",price:1299,old:1599,img:"https://images.unsplash.com/photo-1548624149-f0b6b8c7f7b1?w=600"},
+ {name:"Purple Casual Outfit",cat:"Women",price:899,old:1199,img:"https://images.unsplash.com/photo-1483985988355-763728e1935b?w=600"},
+ {name:"Kids Casual Outfit",cat:"Kids",price:599,old:799,img:"https://images.unsplash.com/photo-1519238263530-99bdd11df2ea?w=600"},
+ {name:"Kids Summer T-Shirt",cat:"Kids",price:399,old:549,img:"https://images.unsplash.com/photo-1503919005314-30d93d07d823?w=600"}
+];
+
+let activeCategory="All";
+
+function renderProducts(){
+ const search=document.getElementById("search").value.toLowerCase();
+ const filtered=items.filter(p=>
+  (activeCategory==="All"||p.cat===activeCategory)&&p.name.toLowerCase().includes(search)
+ );
+ document.getElementById("products").innerHTML=filtered.map(p=>`
+ <article class="product">
+  <img src="${p.img}" alt="${p.name}" loading="lazy">
+  <div class="info">
+   <h3>${p.name}</h3>
+   <div class="price">₹${p.price}<span class="old">₹${p.old}</span></div>
+   <a class="order" href="https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent('Hello THREADLY! I am interested in '+p.name+'. Please share details.')}" target="_blank" rel="noopener">Enquire on WhatsApp</a>
+  </div>
+ </article>`).join("")||"<p>No products found.</p>";
+}
+
+function filterProducts(category,button){
+ activeCategory=category;
+ document.querySelectorAll(".category").forEach(b=>b.classList.remove("active"));
+ button.classList.add("active");
+ renderProducts();
+}
+renderProducts();
+</script>
+</body>
+  </html>
